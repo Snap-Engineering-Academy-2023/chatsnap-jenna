@@ -7,29 +7,14 @@ export default function CameraActions({ checkGallery, takePhoto }) {
   return (
     <View style={styles.cameraActions}>
       <View style={styles.cameraButtons}>
-        <TouchableOpacity onPress={checkGallery}>
-          <Ionicons
-            style={styles.photosIcon}
-            name="ios-copy-outline"
-            size={25}
-            color="white"
-          />
+        <TouchableOpacity onPress={checkGallery} style={styles.photosIcon}>
+          <Ionicons name="ios-copy-outline" size={25} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={takePhoto}>
-          <Ionicons
-            style={styles.pictureIcon}
-            name="ellipse-outline"
-            size={100}
-            color="white"
-          />
+        <TouchableOpacity onPress={takePhoto} style={styles.pictureIcon}>
+          <Ionicons name="ellipse-outline" size={80} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons
-            style={styles.lensesIcon}
-            name="ios-happy-outline"
-            size={25}
-            color="white"
-          />
+        <TouchableOpacity style={styles.lensesIcon}>
+          <Ionicons name="ios-happy-outline" size={25} color="white" />
         </TouchableOpacity>
       </View>
     </View>
@@ -39,25 +24,31 @@ export default function CameraActions({ checkGallery, takePhoto }) {
 const styles = StyleSheet.create({
   cameraActions: {
     position: "absolute",
-    bottom: 20,
-    height: 100,
-    marginBottom: 32,
+    bottom: 0,
+    // bottom: 20,
+    // height: 100,
+    // marginBottom: 32,
     width: "100%",
     alignItems: "center",
   },
   cameraButtons: {
-    width: 158,
-    height: 100,
+    width: "100%",
+    height: "100%",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    flex: 1,
   },
   photosIcon: {
-    marginTop: 20,
+    flex: 1,
+    alignItems: "center",
   },
   pictureIcon: {
-    marginLeft: 8,
+    flex: 1,
+    alignItems: "center",
   },
   lensesIcon: {
-    marginTop: 20,
+    flex: 1,
+    alignItems: "center",
   },
 });

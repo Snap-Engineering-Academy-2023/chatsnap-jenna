@@ -17,6 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function MapScreen({ navigation }) {
   const tabBarHeight = useBottomTabBarHeight();
+  console.log("tabBarHeight:", tabBarHeight);
   const insets = useSafeAreaInsets();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -59,10 +60,10 @@ export default function MapScreen({ navigation }) {
         showsMyLocationButton={true}
       />
 
-      <View style={[styles.mapFooter, { bottom: insets.bottom }]}>
+      <View style={[styles.mapFooter]}>
         <View style={styles.locationContainer}>
           <TouchableOpacity
-            style={styles.userLocation}
+            style={[styles.userLocation, styles.shadow]}
             onPress={() => {
               console.log("Go to user location!");
               const { latitude, longitude } = location.coords;
@@ -72,7 +73,7 @@ export default function MapScreen({ navigation }) {
             <Ionicons name="ios-navigate" size={15} color="black" />
           </TouchableOpacity>
         </View>
-        <View style={styles.bitmojiContainer}>
+        <View style={[styles.bitmojiContainer, styles.shadow]}>
           <View style={styles.myBitmoji}>
             <Image
               style={styles.bitmojiImage}
@@ -108,7 +109,7 @@ export default function MapScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -121,16 +122,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 20,
+    bottom: 0,
   },
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   },
   locationContainer: {
-    // position: "absolute",
-    // bottom: 100,
+    backgroundColor: "transparent",
     width: "100%",
-    // height: 30,
     paddingBottom: 8,
     alignItems: "center",
   },
@@ -141,30 +141,25 @@ const styles = StyleSheet.create({
     width: 36,
     alignItems: "center",
     justifyContent: "center",
+    elevation: 5,
+  },
+  shadow: {
     shadowColor: "rgba(0, 0, 0)",
     shadowOffset: {
       width: 0,
       height: 0,
     },
-    shadowRadius: 5,
+    shadowRadius: 3,
     shadowOpacity: 0.5,
+    elevation: 4,
   },
   bitmojiContainer: {
     width: "100%",
-    // height: 70,
-    // position: "absolute",
-    // bottom: 10,
+    backgroundColor: "transparent",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingBottom: 20,
     paddingHorizontal: 20,
-    shadowColor: "rgba(0, 0, 0)",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 0.5,
   },
   myBitmoji: {
     width: 70,
