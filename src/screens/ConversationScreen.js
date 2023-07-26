@@ -36,10 +36,6 @@ export default function ConversationScreen({ route, navigation }) {
       return <Text>No Chatbot Found with name '{chatbotName}'</Text>;
     }
   };
-  const nav = useNavigation();
-
-  console.log("nav:", nav);
-  console.log("navigation:", navigation);
 
   return (
     <SafeAreaView style={styles.container}>

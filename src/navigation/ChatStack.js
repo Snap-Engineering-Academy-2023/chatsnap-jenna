@@ -15,17 +15,6 @@ export default function ChatStack({ route, navigation }) {
   const auth = getAuth();
   const user = auth.currentUser;
 
-  // useLayoutEffect(() => {
-  //   const routeName = getFocusedRouteNameFromRoute(route);
-  //   console.log(routeName);
-  //   if (routeName == "Conversation") {
-  //     console.log("routeName");
-  //     navigation.setOptions({ tabBarStyle: { display: "none" } });
-  //   } else {
-  //     navigation.setOptions({ tabBarStyle: { display: "flex" } });
-  //   }
-  // }, [navigation, route]);
-
   let screenOptions = {
     tabBarShowLabel: false,
     headerLeft: () => (

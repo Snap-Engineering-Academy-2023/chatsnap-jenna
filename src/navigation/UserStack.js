@@ -66,7 +66,7 @@ export default function UserStack({ route }) {
     <SafeAreaProvider>
       <NavigationContainer>
         <Tab.Navigator
-          tabBar={(props) => <CustomTabBar route={route} {...props} />}
+          tabBar={(props) => <CustomTabBar {...props} />}
           activeColor="#f0edf6"
           inactiveColor="#3e2465"
           barStyle={{
@@ -125,13 +125,13 @@ const getTabIcon = (routeName, focused) => {
 // { state, descriptors, navigation, route }
 
 const CustomTabBar = (props) => {
-  const { state, descriptors, navigation, route } = props;
+  const { state, descriptors, navigation } = props;
   const insets = useSafeAreaInsets();
 
   // Hide tab navigator if we're in the conversation screen of the Chat tab
   // Will prevent tab navigator from being displayed in any screens that are
   // not part of the tab navigator (is kinda sus)
-  if (state.index == 1 && state.routes[1].state.index == 1) {
+  if (state.index == 1 && state.routes[1]?.state?.index == 1) {
     return null;
   }
 
