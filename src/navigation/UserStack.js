@@ -131,7 +131,7 @@ const CustomTabBar = (props) => {
   // Hide tab navigator if we're in the conversation screen of the Chat tab
   // Will prevent tab navigator from being displayed in any screens that are
   // not part of the tab navigator (is kinda sus)
-  if (state.routes[1].state.index == 1) {
+  if (state.index == 1 && state.routes[1].state.index == 1) {
     return null;
   }
 
