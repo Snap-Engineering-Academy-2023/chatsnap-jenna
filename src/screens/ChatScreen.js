@@ -22,7 +22,7 @@ export default function ChatScreen({ navigation }) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {users?.map((user) => {
         return (
           <TouchableOpacity
@@ -50,7 +50,7 @@ export default function ChatScreen({ navigation }) {
           </TouchableOpacity>
         );
       })}
-    </SafeAreaView>
+    </View>
   );
 }
 
