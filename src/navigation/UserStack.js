@@ -128,22 +128,12 @@ const CustomTabBar = (props) => {
   const { state, descriptors, navigation, route } = props;
   const insets = useSafeAreaInsets();
 
-  // console.log("state routes:", state.routes[1].state);
-
+  // Hide tab navigator if we're in the conversation screen of the Chat tab
+  // Will prevent tab navigator from being displayed in any screens that are
+  // not part of the tab navigator (is kinda sus)
   if (state.routes[1].state.index == 1) {
     return null;
   }
-
-  // useLayoutEffect(() => {
-  //   const routeName = getFocusedRouteNameFromRoute(route);
-  //   console.log(routeName);
-  //   if (routeName == "Conversation") {
-  //     console.log("routeName");
-  //     navigation.setOptions({ tabBarStyle: { display: "none" } });
-  //   } else {
-  //     navigation.setOptions({ tabBarStyle: { display: "flex" } });
-  //   }
-  // }, [navigation, route]);
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
