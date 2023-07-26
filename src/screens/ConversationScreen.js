@@ -1,48 +1,50 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
-import db from "../../firebase";
-import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
-import { useAuthentication } from "../utils/hooks/useAuthentication";
-import { View } from "react-native";
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, SafeAreaView, Platform, Text } from "react-native";
+import BasicChatbot from "../chatbots/BasicChatbot";
+import BakersChatbot from "../chatbots/BakersChatbot";
 
-export default function ConversationScreen({ navigation, route }) {
-  const [messages, setMessages] = useState([]);
-  const { userId } = route.params;
-  const chatRef = doc(db, "Chats", userId);
-
-  const { user, userData } = useAuthentication();
-
-  useEffect(() => {
-    let unsubscribeFromNewSnapshots = onSnapshot(chatRef, (doc) => {
-      console.log("New Snapshot!");
-      setMessages(doc.data().messages);
-    });
-
-    return function cleanupBeforeUnmounting() {
-      unsubscribeFromNewSnapshots();
-    };
-  }, []);
-
-  const onSend = useCallback((messages = []) => {
-    updateDoc(chatRef, {
-      // arrayUnion appends the message to the existing array
-      messages: arrayUnion(messages[0]),
-    });
-  }, []);
-  if (!user || !userData) {
-    return <View></View>;
+// prettier-ignore
+export const CHATBOTS = {
+  "BasicChatbot": {
+    id: "BasicChatbot",
+    name: "React Native Chatbot",
+    imageUrl: "https://loremflickr.com/140/140",
+    component: BasicChatbot,
+  },
+  "BakersChatbot": {
+    id: "BakersChatbot",
+    name: "Baker's Dog Trivia",
+    imageUrl: "https://img.freepik.com/free-vector/cute-dog-robot-cartoon-character-animal-technology-isolated_138676-3143.jpg?w=150",
+    component: BakersChatbot,
   }
+};
+
+export default function ConversationScreen({ route }) {
+  // const { chatbotName } = route.params;
+  const chatbotName = "BasicChatbot";
+
+  const makeChatbotComponent = (chatbotName) => {
+    if (CHATBOTS[chatbotName]) {
+      const Chatbot = CHATBOTS[chatbotName].component;
+      return <Chatbot />;
+    } else {
+      return <Text>No Chatbot Found with name '{chatbotName}'</Text>;
+    }
+  };
+
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: user.uid,
-        name: userData.name,
-      }}
-      inverted={false}
-      showUserAvatar={true}
-      renderUsernameOnMessage={true}
-    />
+    <SafeAreaView style={styles.container}>
+      {makeChatbotComponent(chatbotName)}
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // backgroundColor: "#ffffff",
+    // flex: 1,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+});

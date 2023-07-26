@@ -12,7 +12,6 @@ import { getAuth, signOut } from "firebase/auth";
 const Stack = createStackNavigator();
 
 export default function ChatStack({ navigation }) {
-
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -43,7 +42,7 @@ export default function ChatStack({ navigation }) {
         component={ChatScreen}
         options={screenOptions}
       />
-      <Stack.Screen name="Conversation" component={ConversationScreen} />
+      {/* <Stack.Screen name="Conversation" component={ConversationScreen} /> */}
     </Stack.Navigator>
   );
 }

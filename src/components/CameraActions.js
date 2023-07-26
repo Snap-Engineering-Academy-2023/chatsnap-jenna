@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     height: 100,
+    marginBottom: 32,
     width: "100%",
     alignItems: "center",
   },

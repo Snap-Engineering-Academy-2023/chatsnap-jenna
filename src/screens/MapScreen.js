@@ -8,12 +8,16 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as Location from "expo-location";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function MapScreen({ navigation }) {
+  const tabBarHeight = useBottomTabBarHeight();
+  const insets = useSafeAreaInsets();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -47,7 +51,7 @@ export default function MapScreen({ navigation }) {
   text = JSON.stringify(location);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginBottom: tabBarHeight }]}>
       <MapView
         style={styles.map}
         region={currentRegion}
@@ -55,44 +59,46 @@ export default function MapScreen({ navigation }) {
         showsMyLocationButton={true}
       />
 
-      <View style={styles.locationContainer}>
-        <TouchableOpacity
-          style={styles.userLocation}
-          onPress={() => {
-            console.log("Go to user location!");
-            const { latitude, longitude } = location.coords;
-            setCurrentRegion({ ...currentRegion, latitude, longitude });
-          }}
-        >
-          <Ionicons name="ios-navigate" size={15} color="black" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bitmojiContainer}>
-        <View style={styles.myBitmoji}>
-          <Image
-            style={styles.bitmojiImage}
-            source={require("../../assets/snapchat/personalBitmoji.png")}
-          />
-          <View style={styles.bitmojiTextContainer}>
-            <Text style={styles.bitmojiText}>My Bitmoji</Text>
-          </View>
+      <View style={[styles.mapFooter, { bottom: insets.bottom }]}>
+        <View style={styles.locationContainer}>
+          <TouchableOpacity
+            style={styles.userLocation}
+            onPress={() => {
+              console.log("Go to user location!");
+              const { latitude, longitude } = location.coords;
+              setCurrentRegion({ ...currentRegion, latitude, longitude });
+            }}
+          >
+            <Ionicons name="ios-navigate" size={15} color="black" />
+          </TouchableOpacity>
         </View>
-        <View style={styles.places}>
-          <Image
-            style={styles.bitmojiImage}
-            source={require("../../assets/snapchat/personalBitmoji.png")}
-          />
-          <View style={styles.bitmojiTextContainer}>
-            <Text style={styles.bitmojiText}>Places</Text>
+        <View style={styles.bitmojiContainer}>
+          <View style={styles.myBitmoji}>
+            <Image
+              style={styles.bitmojiImage}
+              source={require("../../assets/snapchat/personalBitmoji.png")}
+            />
+            <View style={styles.bitmojiTextContainer}>
+              <Text style={styles.bitmojiText}>My Bitmoji</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.myFriends}>
-          <Image
-            style={styles.bitmojiImage}
-            source={require("../../assets/snapchat/personalBitmoji.png")}
-          />
-          <View style={styles.bitmojiTextContainer}>
-            <Text style={styles.bitmojiText}>Friends</Text>
+          <View style={styles.places}>
+            <Image
+              style={styles.bitmojiImage}
+              source={require("../../assets/snapchat/personalBitmoji.png")}
+            />
+            <View style={styles.bitmojiTextContainer}>
+              <Text style={styles.bitmojiText}>Places</Text>
+            </View>
+          </View>
+          <View style={styles.myFriends}>
+            <Image
+              style={styles.bitmojiImage}
+              source={require("../../assets/snapchat/personalBitmoji.png")}
+            />
+            <View style={styles.bitmojiTextContainer}>
+              <Text style={styles.bitmojiText}>Friends</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -102,38 +108,63 @@ export default function MapScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  mapFooter: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 20,
   },
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   },
   locationContainer: {
-    position: "absolute",
-    bottom: 100,
+    // position: "absolute",
+    // bottom: 100,
     width: "100%",
-    height: 30,
+    // height: 30,
+    paddingBottom: 8,
     alignItems: "center",
   },
   userLocation: {
     backgroundColor: "white",
-    borderRadius: 15,
-    height: 30,
-    width: 30,
+    borderRadius: 100,
+    height: 36,
+    width: 36,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 8,
+    shadowColor: "rgba(0, 0, 0)",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 0.5,
   },
   bitmojiContainer: {
     width: "100%",
-    height: 70,
-    position: "absolute",
-    bottom: 10,
+    // height: 70,
+    // position: "absolute",
+    // bottom: 10,
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    shadowColor: "rgba(0, 0, 0)",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 0.5,
   },
   myBitmoji: {
     width: 70,

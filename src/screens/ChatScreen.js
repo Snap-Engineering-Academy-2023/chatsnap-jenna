@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ChatScreen({ navigation }) {
   const [users, setUsers] = useState([]);
@@ -21,7 +22,7 @@ export default function ChatScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {users?.map((user) => {
         return (
           <TouchableOpacity
@@ -49,7 +50,7 @@ export default function ChatScreen({ navigation }) {
           </TouchableOpacity>
         );
       })}
-    </View>
+    </SafeAreaView>
   );
 }
 
