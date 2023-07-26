@@ -1,8 +1,12 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, SafeAreaView, Platform, Text } from "react-native";
+import { StyleSheet, SafeAreaView, Platform, Text, View } from "react-native";
 import BasicChatbot from "../chatbots/BasicChatbot";
 import BakersChatbot from "../chatbots/BakersChatbot";
+import {
+  useNavigation,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native";
 
 // prettier-ignore
 export const CHATBOTS = {
@@ -20,7 +24,7 @@ export const CHATBOTS = {
   }
 };
 
-export default function ConversationScreen({ route }) {
+export default function ConversationScreen({ route, navigation }) {
   // const { chatbotName } = route.params;
   const chatbotName = "BasicChatbot";
 
@@ -32,19 +36,22 @@ export default function ConversationScreen({ route }) {
       return <Text>No Chatbot Found with name '{chatbotName}'</Text>;
     }
   };
+  const nav = useNavigation();
+
+  console.log("nav:", nav);
+  console.log("navigation:", navigation);
 
   return (
     <SafeAreaView style={styles.container}>
-      {makeChatbotComponent(chatbotName)}
+      <BakersChatbot />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: "#ffffff",
-    // flex: 1,
+    flex: 1,
+    backgroundColor: "#ffffff",
     // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });

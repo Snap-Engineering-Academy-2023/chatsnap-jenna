@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import { Button } from "react-native";
 
 // Screens
@@ -8,12 +7,24 @@ import ChatScreen from "../screens/ChatScreen";
 import ConversationScreen from "../screens/ConversationScreen";
 
 import { getAuth, signOut } from "firebase/auth";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
-export default function ChatStack({ navigation }) {
+export default function ChatStack({ route, navigation }) {
   const auth = getAuth();
   const user = auth.currentUser;
+
+  // useLayoutEffect(() => {
+  //   const routeName = getFocusedRouteNameFromRoute(route);
+  //   console.log(routeName);
+  //   if (routeName == "Conversation") {
+  //     console.log("routeName");
+  //     navigation.setOptions({ tabBarStyle: { display: "none" } });
+  //   } else {
+  //     navigation.setOptions({ tabBarStyle: { display: "flex" } });
+  //   }
+  // }, [navigation, route]);
 
   let screenOptions = {
     tabBarShowLabel: false,

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 
 import {
   CameraOutline,
@@ -27,6 +27,8 @@ import CameraScreen from "../screens/CameraScreen";
 import StoriesScreen from "../screens/StoriesScreen";
 import SpotlightScreen from "../screens/SpotlightScreen";
 
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
 // Stacks
 import ChatStack from "./ChatStack";
 import {
@@ -36,7 +38,7 @@ import {
 
 const Tab = createBottomTabNavigator();
 
-export default function UserStack() {
+export default function UserStack({ route }) {
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -64,7 +66,7 @@ export default function UserStack() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Tab.Navigator
-          tabBar={(props) => <CustomTabBar {...props} />}
+          tabBar={(props) => <CustomTabBar route={route} {...props} />}
           activeColor="#f0edf6"
           inactiveColor="#3e2465"
           barStyle={{
@@ -80,7 +82,10 @@ export default function UserStack() {
           <Tab.Screen
             name="ChatStack"
             component={ChatStack}
-            options={{ headerShown: false, tabBarShowLabel: false }}
+            options={{
+              headerShown: false,
+              tabBarShowLabel: false,
+            }}
           />
           <Tab.Screen
             name="Camera"
@@ -117,8 +122,28 @@ const getTabIcon = (routeName, focused) => {
   }
 };
 
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+// { state, descriptors, navigation, route }
+
+const CustomTabBar = (props) => {
+  const { state, descriptors, navigation, route } = props;
   const insets = useSafeAreaInsets();
+
+  // console.log("state routes:", state.routes[1].state);
+
+  if (state.routes[1].state.index == 1) {
+    return null;
+  }
+
+  // useLayoutEffect(() => {
+  //   const routeName = getFocusedRouteNameFromRoute(route);
+  //   console.log(routeName);
+  //   if (routeName == "Conversation") {
+  //     console.log("routeName");
+  //     navigation.setOptions({ tabBarStyle: { display: "none" } });
+  //   } else {
+  //     navigation.setOptions({ tabBarStyle: { display: "flex" } });
+  //   }
+  // }, [navigation, route]);
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
