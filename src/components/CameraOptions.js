@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function CameraOptions({ flipCamera, switchFlash }) {
   const [flashState, setFlashState] = useState("ios-flash-off-outline");
+  const insets = useSafeAreaInsets();
 
   function switchFlash() {
     if (flashState == "ios-flash-off-outline") {
@@ -15,7 +16,7 @@ export default function CameraOptions({ flipCamera, switchFlash }) {
   }
 
   return (
-    <View style={styles.cameraOptions}>
+    <View style={[styles.cameraOptions, { marginTop: insets.top }]}>
       <TouchableOpacity onPress={flipCamera}>
         <Ionicons
           style={styles.flipIcon}
@@ -63,8 +64,8 @@ export default function CameraOptions({ flipCamera, switchFlash }) {
 const styles = StyleSheet.create({
   cameraOptions: {
     position: "absolute",
-    right: 5,
-    paddingTop: 40,
+    right: 12,
+    paddingTop: 8,
     height: 250,
     width: 40,
     padding: 5,

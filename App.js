@@ -1,14 +1,17 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // Firebase
 import "./firebase";
 
 // Importing Root Component
 import RootNavigation from "./src/navigation/RootNavigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
-  return <RootNavigation />;
+  return (
+    <SafeAreaProvider>
+      <RootNavigation />
+    </SafeAreaProvider>
+  );
 }

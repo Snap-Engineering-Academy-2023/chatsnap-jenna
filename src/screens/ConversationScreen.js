@@ -1,12 +1,9 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, SafeAreaView, Platform, Text, View } from "react-native";
+import { StyleSheet, Platform, Text, View } from "react-native";
 import BasicChatbot from "../chatbots/BasicChatbot";
 import BakersChatbot from "../chatbots/BakersChatbot";
-import {
-  useNavigation,
-  getFocusedRouteNameFromRoute,
-} from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // prettier-ignore
 export const CHATBOTS = {
@@ -27,6 +24,7 @@ export const CHATBOTS = {
 export default function ConversationScreen({ route, navigation }) {
   // const { chatbotName } = route.params;
   const chatbotName = "BasicChatbot";
+  const insets = useSafeAreaInsets();
 
   const makeChatbotComponent = (chatbotName) => {
     if (CHATBOTS[chatbotName]) {
@@ -38,9 +36,9 @@ export default function ConversationScreen({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <BakersChatbot />
-    </SafeAreaView>
+    </View>
   );
 }
 

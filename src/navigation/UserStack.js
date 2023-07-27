@@ -27,14 +27,9 @@ import CameraScreen from "../screens/CameraScreen";
 import StoriesScreen from "../screens/StoriesScreen";
 import SpotlightScreen from "../screens/SpotlightScreen";
 
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-
 // Stacks
 import ChatStack from "./ChatStack";
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,48 +58,46 @@ export default function UserStack({ route }) {
   };
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Tab.Navigator
-          tabBar={(props) => <CustomTabBar {...props} />}
-          activeColor="#f0edf6"
-          inactiveColor="#3e2465"
-          barStyle={{
-            backgroundColor: "black",
+    <NavigationContainer>
+      <Tab.Navigator
+        tabBar={(props) => <CustomTabBar {...props} />}
+        activeColor="#f0edf6"
+        inactiveColor="#3e2465"
+        barStyle={{
+          backgroundColor: "black",
+        }}
+        initialRouteName="Camera"
+      >
+        <Tab.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ ...screenOptions, headerShown: false }}
+        />
+        <Tab.Screen
+          name="ChatStack"
+          component={ChatStack}
+          options={{
+            headerShown: false,
+            tabBarShowLabel: false,
           }}
-          initialRouteName="Camera"
-        >
-          <Tab.Screen
-            name="Map"
-            component={MapScreen}
-            options={{ ...screenOptions, headerShown: false }}
-          />
-          <Tab.Screen
-            name="ChatStack"
-            component={ChatStack}
-            options={{
-              headerShown: false,
-              tabBarShowLabel: false,
-            }}
-          />
-          <Tab.Screen
-            name="Camera"
-            component={CameraScreen}
-            options={{ ...screenOptions, headerShown: false }}
-          />
-          <Tab.Screen
-            name="Stories"
-            component={StoriesScreen}
-            options={screenOptions}
-          />
-          <Tab.Screen
-            name="Spotlight"
-            component={SpotlightScreen}
-            options={screenOptions}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+        />
+        <Tab.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{ ...screenOptions, headerShown: false }}
+        />
+        <Tab.Screen
+          name="Stories"
+          component={StoriesScreen}
+          options={screenOptions}
+        />
+        <Tab.Screen
+          name="Spotlight"
+          component={SpotlightScreen}
+          options={screenOptions}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -165,10 +158,10 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     width: "100%",
-    bottom: 0,
     backgroundColor: "white",
     borderRadius: 24,
     padding: 16,
+    bottom: 0,
   },
   grayRectangle: {
     flexDirection: "row",

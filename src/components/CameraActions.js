@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraActions({ checkGallery, takePhoto }) {
   return (
@@ -24,10 +25,8 @@ export default function CameraActions({ checkGallery, takePhoto }) {
 const styles = StyleSheet.create({
   cameraActions: {
     position: "absolute",
-    bottom: 0,
-    // bottom: 20,
-    // height: 100,
-    // marginBottom: 32,
+    bottom: 16,
+    paddingBottom: 32,
     width: "100%",
     alignItems: "center",
   },

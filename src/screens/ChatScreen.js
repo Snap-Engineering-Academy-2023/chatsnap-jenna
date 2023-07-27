@@ -5,7 +5,6 @@ import { collection, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ChatScreen({ navigation }) {
   const [users, setUsers] = useState([]);
