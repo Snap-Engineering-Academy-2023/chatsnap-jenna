@@ -3,25 +3,34 @@ import { View, Text, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
+import Header from "../components/Header";
+
 export default function StoriesScreen() {
   const tabBarHeight = useBottomTabBarHeight();
   const insets = useSafeAreaInsets();
 
   return (
     <View
-      style={{
-        flex: 1,
-        justifyContent: "space-between",
-        alignItems: "center",
-
-        // Paddings to handle safe area
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}
+      style={[
+        styles.container,
+        {
+          // Paddings to handle safe area
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+          marginBottom: tabBarHeight,
+        },
+      ]}
     >
-      <Text>This is top text.</Text>
-      <Text>This is bottom text.</Text>
+      <Header title="Stories" />
+      <Text>Stories Screen</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
