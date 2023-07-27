@@ -40,7 +40,7 @@ export default function ChatStack({ route, navigation }) {
       <Stack.Screen
         name="Chat"
         component={ChatScreen}
-        options={screenOptions}
+        options={(screenOptions, { headerShown: false })}
       />
       <Stack.Screen name="Conversation" component={ConversationScreen} />
     </Stack.Navigator>

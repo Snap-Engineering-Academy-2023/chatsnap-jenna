@@ -78,7 +78,6 @@ export default function UserStack({ route }) {
           component={ChatStack}
           options={{
             headerShown: false,
-            tabBarShowLabel: false,
           }}
         />
         <Tab.Screen
@@ -89,7 +88,7 @@ export default function UserStack({ route }) {
         <Tab.Screen
           name="Stories"
           component={StoriesScreen}
-          options={screenOptions}
+          options={(screenOptions, { headerShown: false })}
         />
         <Tab.Screen
           name="Spotlight"
@@ -114,8 +113,6 @@ const getTabIcon = (routeName, focused) => {
     return focused ? <PlayFill /> : <PlayOutline />;
   }
 };
-
-// { state, descriptors, navigation, route }
 
 const CustomTabBar = (props) => {
   const { state, descriptors, navigation } = props;

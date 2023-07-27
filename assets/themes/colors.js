@@ -3,6 +3,7 @@ export const colors = {
   secondary: "#535456",
   tertiary: "#828385",
   belowPage: "#ECECEE",
+  interactionGraySubtle: "#ECECEE",
 };
 
 export const formColors = {
