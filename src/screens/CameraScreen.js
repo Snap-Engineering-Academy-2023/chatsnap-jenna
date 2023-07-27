@@ -123,6 +123,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 16,
+    marginBottom: -16,
   },
   preview: {
     height: "80%",
